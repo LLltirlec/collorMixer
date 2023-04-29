@@ -7,10 +7,7 @@
 
 import UIKit
 
-extension UIView {
-}
-
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
     @IBOutlet weak var collorView: UIView!
     
@@ -21,6 +18,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var redValue: UILabel!
     @IBOutlet weak var greenValue: UILabel!
     @IBOutlet weak var blueValue: UILabel!
+    @IBOutlet weak var hexValueField: UITextField!
+    @IBOutlet weak var copyToClipbButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,13 +36,27 @@ class ViewController: UIViewController {
         changeViewCollor()
     }
     
+    @IBAction func copyToClipbButtonTapped() {
+        UIPasteboard.general.string = hexValueField.text
+        let alert = UIAlertController(title: "BAADA BOOOM", message: "Hex value has been copied", preferredStyle: .actionSheet)
+        present(alert, animated: true)
+        
+        let seconds = 0.7
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            alert.dismiss(animated: true)
+        }
+    }
+    
     private func changeViewCollor() {
-        collorView.backgroundColor = UIColor(
+        let color = UIColor(
             red: CGFloat(redSlider.value),
             green: CGFloat(greenSlider.value),
             blue: CGFloat(blueSlider.value),
             alpha: 1)
+        
+        collorView.backgroundColor = color
         changeLabelValue()
+        hexValueField.text = hexStringFromColor(color)
     }
     
     private func changeLabelValue() {
@@ -51,5 +64,20 @@ class ViewController: UIViewController {
         greenValue.text = (round(greenSlider.value * 100) / 100).formatted()
         blueValue.text = (round(blueSlider.value * 100) / 100).formatted()
     }
+    
+    private func hexStringFromColor(_ color: UIColor) -> String {
+        let components = color.cgColor.components
+        let r: CGFloat = components?[0] ?? 0.0
+        let g: CGFloat = components?[1] ?? 0.0
+        let b: CGFloat = components?[2] ?? 0.0
+
+        let hexString = String.init(
+            format: "#%02lX%02lX%02lX",
+            lroundf(Float(r * 255)),
+            lroundf(Float(g * 255)),
+            lroundf(Float(b * 255))
+        )
+        return hexString
+     }
 }
 
