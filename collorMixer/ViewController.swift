@@ -32,6 +32,19 @@ extension UIViewController {
             alert.dismiss(animated: true)
         }
     }
+    
+    func saveData(data: Float, key: String) {
+        UserDefaults.standard.set(data, forKey: key)
+    }
+    
+    func loadData(key: String) -> Float {
+        if UserDefaults.standard.object(forKey: key) != nil {
+            return UserDefaults.standard.float(forKey: key)
+        }
+        else{
+            return 0.5
+        }
+    }
 }
 
 final class ViewController: UIViewController {
@@ -51,11 +64,9 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if UserDefaults.standard.object(forKey: "redColor") != nil {
-            redSlider.value = UserDefaults.standard.float(forKey: "redColor")
-            greenSlider.value = UserDefaults.standard.float(forKey: "greenColor")
-            blueSlider.value = UserDefaults.standard.float(forKey: "blueColor")
-        }
+        redSlider.value = loadData(key: "redColor")
+        greenSlider.value = loadData(key: "greenColor")
+        blueSlider.value = loadData(key: "blueColor")
         
         changeViewCollor()
     }
@@ -86,9 +97,9 @@ final class ViewController: UIViewController {
         changeLabelValue()
         hexValueField.text = hexStringFromColor(color)
         
-        UserDefaults.standard.set(redSlider.value, forKey: "redColor")
-        UserDefaults.standard.set(greenSlider.value, forKey: "greenColor")
-        UserDefaults.standard.set(blueSlider.value, forKey: "blueColor")
+        saveData(data: redSlider.value, key: "redColor")
+        saveData(data: greenSlider.value, key: "greenColor")
+        saveData(data: blueSlider.value, key: "blueColor")
     }
     
     private func changeLabelValue() {
