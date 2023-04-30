@@ -50,6 +50,13 @@ final class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if UserDefaults.standard.object(forKey: "redColor") != nil {
+            redSlider.value = UserDefaults.standard.float(forKey: "redColor")
+            greenSlider.value = UserDefaults.standard.float(forKey: "greenColor")
+            blueSlider.value = UserDefaults.standard.float(forKey: "blueColor")
+        }
+        
         changeViewCollor()
     }
 
@@ -78,6 +85,10 @@ final class ViewController: UIViewController {
         collorView.backgroundColor = color
         changeLabelValue()
         hexValueField.text = hexStringFromColor(color)
+        
+        UserDefaults.standard.set(redSlider.value, forKey: "redColor")
+        UserDefaults.standard.set(greenSlider.value, forKey: "greenColor")
+        UserDefaults.standard.set(blueSlider.value, forKey: "blueColor")
     }
     
     private func changeLabelValue() {
