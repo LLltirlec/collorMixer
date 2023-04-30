@@ -24,7 +24,11 @@ extension UIViewController {
      }
     
     func fastAlert(title: String, message: String, closeAfter: Double) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .actionSheet
+        )
         present(alert, animated: true)
         
         let seconds = closeAfter
@@ -83,7 +87,11 @@ final class ViewController: UIViewController {
     
     @IBAction func copyToClipbButtonTapped() {
         UIPasteboard.general.string = hexValueField.text
-        fastAlert(title: "BAADA BOOM", message: "Hex value has been copied", closeAfter: 0.7)
+        fastAlert(
+            title: "BAADA BOOM",
+            message: "Hex value has been copied",
+            closeAfter: 0.7
+        )
     }
     
     private func changeViewCollor() {
