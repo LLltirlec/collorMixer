@@ -162,7 +162,7 @@
                     <connections>
                         <outlet property="blueSlider" destination="Ixl-mB-j1I" id="CwJ-3H-yYX"/>
                         <outlet property="blueValue" destination="nz7-C6-3DE" id="yEP-aI-A6U"/>
-                        <outlet property="collorView" destination="BHE-6j-Eyh" id="Qeg-Mn-hzD"/>
+                        <outlet property="colorView" destination="BHE-6j-Eyh" id="Qeg-Mn-hzD"/>
                         <outlet property="copyToClipbButton" destination="5Hq-n9-M90" id="P38-ve-MnX"/>
                         <outlet property="greenSlider" destination="gKq-ml-KcW" id="Vfh-VM-9GS"/>
                         <outlet property="greenValue" destination="Epj-la-Crp" id="QJO-KR-qIM"/>

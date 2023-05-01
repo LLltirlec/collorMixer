@@ -53,7 +53,7 @@ extension UIViewController {
 
 final class ViewController: UIViewController {
 
-    @IBOutlet weak var collorView: UIView!
+    @IBOutlet weak var colorView: UIView!
     
     @IBOutlet weak var redSlider: UISlider!
     @IBOutlet weak var greenSlider: UISlider!
@@ -73,6 +73,12 @@ final class ViewController: UIViewController {
         blueSlider.value = loadData(key: "blueColor")
         
         changeViewCollor()
+    }
+    override func viewDidLayoutSubviews() {
+        let roundingDepth = 0.02
+        
+        colorView.layer.cornerRadius = colorView.frame.width * roundingDepth
+        copyToClipbButton.layer.cornerRadius = copyToClipbButton.frame.width * roundingDepth
     }
 
     @IBAction func redSliderChanged() {
@@ -101,7 +107,7 @@ final class ViewController: UIViewController {
             blue: CGFloat(blueSlider.value),
             alpha: 1)
         
-        collorView.backgroundColor = color
+        colorView.backgroundColor = color
         changeLabelValue()
         hexValueField.text = hexStringFromColor(color)
         
