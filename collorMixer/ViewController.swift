@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+// MARK: Extensions
 extension UIViewController {
     func hexStringFromColor(_ color: UIColor) -> String {
         let components = color.cgColor.components
@@ -51,6 +51,18 @@ extension UIViewController {
     }
 }
 
+extension UIColor {
+    var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+
+        return (red, green, blue, alpha)
+    }
+}
+
 final class ViewController: UIViewController {
 
     @IBOutlet weak var colorView: UIView!
@@ -64,13 +76,22 @@ final class ViewController: UIViewController {
     @IBOutlet weak var blueValue: UILabel!
     @IBOutlet weak var hexValueField: UITextField!
     @IBOutlet weak var copyToClipbButton: UIButton!
+    @IBOutlet weak var colorWell: UIColorWell!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        redSlider.value = loadData(key: "redColor")
-        greenSlider.value = loadData(key: "greenColor")
-        blueSlider.value = loadData(key: "blueColor")
+        let red = loadData(key: "redColor")
+        let green = loadData(key: "greenColor")
+        let blue = loadData(key: "blueColor")
+        
+        redSlider.value = red
+        greenSlider.value = green
+        blueSlider.value = blue
+        
+        colorWell.selectedColor = UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: 1)
+        colorWell.supportsAlpha = false
+        colorWell.addTarget(self, action: #selector(colorWellChanged), for: .valueChanged)
         
         changeViewCollor()
     }
@@ -98,6 +119,17 @@ final class ViewController: UIViewController {
             message: "Hex value has been copied",
             closeAfter: 0.7
         )
+    }
+    
+    @objc private func colorWellChanged() {
+        colorView.backgroundColor = colorWell.selectedColor
+        
+        redSlider.value = Float(colorView.backgroundColor!.rgba.red)
+        greenSlider.value = Float(colorView.backgroundColor!.rgba.green)
+        blueSlider.value = Float(colorView.backgroundColor!.rgba.blue)
+        
+        changeLabelValue()
+        hexValueField.text = hexStringFromColor(colorView.backgroundColor!)
     }
     
     private func changeViewCollor() {
