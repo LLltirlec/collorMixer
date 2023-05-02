@@ -7,10 +7,11 @@
 
 import UIKit
 
-extension UIView {
+extension UISlider {
+    
 }
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
     @IBOutlet weak var collorView: UIView!
     
@@ -24,17 +25,20 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         changeViewCollor()
+        changeLabelValue()
     }
 
-    @IBAction func redSliderChanged() {
+    @IBAction func sliderValueChanged() {
         changeViewCollor()
+        changeLabelValue()
     }
-    @IBAction func greenSliderChanged() {
-        changeViewCollor()
-    }
-    @IBAction func blueSliderChange() {
-        changeViewCollor()
+    
+    override func viewDidLayoutSubviews() {
+        let roundingDepth = 0.04
+        
+        collorView.layer.cornerRadius = collorView.frame.width * roundingDepth
     }
     
     private func changeViewCollor() {
@@ -43,13 +47,12 @@ class ViewController: UIViewController {
             green: CGFloat(greenSlider.value),
             blue: CGFloat(blueSlider.value),
             alpha: 1)
-        changeLabelValue()
     }
     
     private func changeLabelValue() {
-        redValue.text = (round(redSlider.value * 100) / 100).formatted()
-        greenValue.text = (round(greenSlider.value * 100) / 100).formatted()
-        blueValue.text = (round(blueSlider.value * 100) / 100).formatted()
+        redValue.text = String(format: "%.2f", redSlider.value)
+        greenValue.text = String(format: "%.2f", greenSlider.value)
+        blueValue.text = String(format: "%.2f", blueSlider.value)
     }
 }
 
