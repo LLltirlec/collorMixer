@@ -81,35 +81,22 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let red = loadData(key: "redColor")
-        let green = loadData(key: "greenColor")
-        let blue = loadData(key: "blueColor")
-        
-        redSlider.value = red
-        greenSlider.value = green
-        blueSlider.value = blue
-        
-        colorWell.selectedColor = UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: 1)
-        colorWell.supportsAlpha = false
-        colorWell.addTarget(self, action: #selector(colorWellChanged), for: .valueChanged)
-        
+        loadSaveData()
         changeViewCollor()
+        changeLabelValue()
     }
+    
     override func viewDidLayoutSubviews() {
-        let roundingDepth = 0.02
+        let roundingDepth = 0.04
         
         colorView.layer.cornerRadius = colorView.frame.width * roundingDepth
         copyToClipbButton.layer.cornerRadius = copyToClipbButton.frame.width * roundingDepth
     }
 
-    @IBAction func redSliderChanged() {
+    @IBAction func sliderValueChanged() {
         changeViewCollor()
-    }
-    @IBAction func greenSliderChanged() {
-        changeViewCollor()
-    }
-    @IBAction func blueSliderChange() {
-        changeViewCollor()
+        changeLabelValue()
+        saveCurentData()
     }
     
     @IBAction func copyToClipbButtonTapped() {
@@ -132,6 +119,26 @@ final class ViewController: UIViewController {
         hexValueField.text = hexStringFromColor(colorView.backgroundColor!)
     }
     
+    private func loadSaveData() {
+        let red = loadData(key: "redColor")
+        let green = loadData(key: "greenColor")
+        let blue = loadData(key: "blueColor")
+        
+        redSlider.value = red
+        greenSlider.value = green
+        blueSlider.value = blue
+        
+        colorWell.selectedColor = UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: 1)
+        colorWell.supportsAlpha = false
+        colorWell.addTarget(self, action: #selector(colorWellChanged), for: .valueChanged)
+    }
+    
+    private func saveCurentData() {
+        saveData(data: redSlider.value, key: "redColor")
+        saveData(data: greenSlider.value, key: "greenColor")
+        saveData(data: blueSlider.value, key: "blueColor")
+    }
+    
     private func changeViewCollor() {
         let color = UIColor(
             red: CGFloat(redSlider.value),
@@ -140,18 +147,13 @@ final class ViewController: UIViewController {
             alpha: 1)
         
         colorView.backgroundColor = color
-        changeLabelValue()
         hexValueField.text = hexStringFromColor(color)
-        
-        saveData(data: redSlider.value, key: "redColor")
-        saveData(data: greenSlider.value, key: "greenColor")
-        saveData(data: blueSlider.value, key: "blueColor")
     }
     
     private func changeLabelValue() {
-        redValue.text = (round(redSlider.value * 100) / 100).formatted()
-        greenValue.text = (round(greenSlider.value * 100) / 100).formatted()
-        blueValue.text = (round(blueSlider.value * 100) / 100).formatted()
+        redValue.text = String(format: "%.2f", redSlider.value)
+        greenValue.text = String(format: "%.2f", greenSlider.value)
+        blueValue.text = String(format: "%.2f", blueSlider.value)
     }
 }
 
