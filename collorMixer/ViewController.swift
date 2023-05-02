@@ -82,6 +82,14 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
         
         loadSaveData()
+        
+        colorWell.supportsAlpha = false
+        colorWell.addTarget(
+            self,
+            action: #selector(colorWellChanged),
+            for: .valueChanged
+        )
+        
         changeViewCollor()
         changeLabelValue()
     }
@@ -128,9 +136,12 @@ final class ViewController: UIViewController {
         greenSlider.value = green
         blueSlider.value = blue
         
-        colorWell.selectedColor = UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: 1)
-        colorWell.supportsAlpha = false
-        colorWell.addTarget(self, action: #selector(colorWellChanged), for: .valueChanged)
+        colorWell.selectedColor = UIColor(
+            red: CGFloat(red),
+            green: CGFloat(green),
+            blue: CGFloat(blue),
+            alpha: 1
+        )
     }
     
     private func saveCurentData() {
