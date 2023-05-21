@@ -7,11 +7,7 @@
 
 import UIKit
 
-extension UISlider {
-    
-}
-
-final class ViewController: UIViewController {
+final class PickerViewController: UIViewController {
 
     @IBOutlet weak var collorView: UIView!
     
@@ -23,9 +19,13 @@ final class ViewController: UIViewController {
     @IBOutlet weak var greenValue: UILabel!
     @IBOutlet weak var blueValue: UILabel!
     
+    var color: Color!
+    unowned var delegate: PickerViewControllerDeligate!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getColor()
         changeViewCollor()
         changeLabelValue()
     }
@@ -33,12 +33,25 @@ final class ViewController: UIViewController {
     @IBAction func sliderValueChanged() {
         changeViewCollor()
         changeLabelValue()
+        changeModelValue()
+        
+    }
+    
+    @IBAction func doneButtonTapped() {
+        delegate.setNewColor(for: color)
+        dismiss(animated: true)
     }
     
     override func viewDidLayoutSubviews() {
         let roundingDepth = 0.04
         
         collorView.layer.cornerRadius = collorView.frame.width * roundingDepth
+    }
+    
+    private func getColor() {
+        redSlider.value = color.red
+        greenSlider.value = color.green
+        blueSlider.value = color.blue
     }
     
     private func changeViewCollor() {
@@ -53,6 +66,12 @@ final class ViewController: UIViewController {
         redValue.text = String(format: "%.2f", redSlider.value)
         greenValue.text = String(format: "%.2f", greenSlider.value)
         blueValue.text = String(format: "%.2f", blueSlider.value)
+    }
+    
+    private func changeModelValue() {
+        color.red = redSlider.value
+        color.green = greenSlider.value
+        color.blue = blueSlider.value
     }
 }
 

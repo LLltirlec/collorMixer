@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="K9B-d9-YfB">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
@@ -8,15 +8,48 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Main View Controller-->
+        <scene sceneID="MUE-sx-emi">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="collorMixer" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                <viewController id="K9B-d9-YfB" customClass="MainViewController" customModule="collorMixer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xP7-0c-Xdu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="1Vf-Cl-8zh">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F5a-ST-dxN">
+                                <rect key="frame" x="307" y="36" width="52" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="F5a-ST-dxN" secondAttribute="height" multiplier="26:17" id="cYK-q8-PHr"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="gear" catalog="system"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" id="D4x-HR-K2c"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ThM-gs-4Uc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="F5a-ST-dxN" firstAttribute="top" secondItem="ThM-gs-4Uc" secondAttribute="top" constant="16" id="Hcw-gZ-GfO"/>
+                            <constraint firstItem="F5a-ST-dxN" firstAttribute="height" secondItem="xP7-0c-Xdu" secondAttribute="height" multiplier="0.0509745" id="Z8a-fp-FTE"/>
+                            <constraint firstItem="ThM-gs-4Uc" firstAttribute="trailing" secondItem="F5a-ST-dxN" secondAttribute="trailing" constant="16" id="lIh-2k-xj3"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CBO-JK-gTe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-796" y="-27"/>
+        </scene>
+        <!--Picker View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="PickerViewController" customModule="collorMixer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="1Vf-Cl-8zh">
                                 <rect key="frame" x="8.5" y="200.5" width="358" height="92"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vm1-9b-7fb">
@@ -98,19 +131,31 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BHE-6j-Eyh">
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BHE-6j-Eyh">
                                 <rect key="frame" x="67" y="40" width="241" height="126"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="BHE-6j-Eyh" secondAttribute="height" multiplier="241:126" id="1ci-NB-Rxf"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fsu-vO-NRw">
+                                <rect key="frame" x="152" y="435" width="71" height="38"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Done">
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="20"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="doneButtonTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="hoB-jj-vjj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemYellowColor"/>
                         <constraints>
                             <constraint firstItem="BHE-6j-Eyh" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.188906" id="2ZM-JB-Lso"/>
+                            <constraint firstItem="fsu-vO-NRw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="D1z-cY-CVj"/>
                             <constraint firstItem="1Vf-Cl-8zh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8.5" id="PfQ-MT-ZcA"/>
+                            <constraint firstItem="fsu-vO-NRw" firstAttribute="top" secondItem="1Vf-Cl-8zh" secondAttribute="bottom" constant="142.5" id="TTa-Al-tnG"/>
                             <constraint firstItem="1Vf-Cl-8zh" firstAttribute="top" secondItem="BHE-6j-Eyh" secondAttribute="bottom" constant="34.5" id="TYt-g8-Y3N"/>
                             <constraint firstAttribute="trailing" secondItem="1Vf-Cl-8zh" secondAttribute="trailing" constant="8.5" id="ac8-VN-kbt"/>
                             <constraint firstItem="BHE-6j-Eyh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="azz-fa-zqe"/>
@@ -134,6 +179,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="gear" catalog="system" width="128" height="122"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
