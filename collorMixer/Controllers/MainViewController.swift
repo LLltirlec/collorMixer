@@ -19,6 +19,12 @@ final class MainViewController: UIViewController {
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = UIColor(red: CGFloat(color.red), green: CGFloat(color.green), blue: CGFloat(color.blue), alpha: 1)
+        
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let pickerVC = segue.destination as? PickerViewController else { return }
         

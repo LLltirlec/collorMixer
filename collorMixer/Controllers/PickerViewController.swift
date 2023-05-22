@@ -8,7 +8,7 @@
 import UIKit
 
 final class PickerViewController: UIViewController {
-
+    
     @IBOutlet weak var collorView: UIView!
     
     @IBOutlet weak var redSlider: UISlider!
@@ -19,6 +19,10 @@ final class PickerViewController: UIViewController {
     @IBOutlet weak var greenValue: UILabel!
     @IBOutlet weak var blueValue: UILabel!
     
+    @IBOutlet weak var redColorTextField: UITextField!
+    @IBOutlet weak var greenColorTextField: UITextField!
+    @IBOutlet weak var blueColorTextField: UITextField!
+    
     var color: Color!
     unowned var delegate: PickerViewControllerDeligate!
     
@@ -27,13 +31,30 @@ final class PickerViewController: UIViewController {
         
         getColor()
         changeViewCollor()
-        changeLabelValue()
+        
+        redColorTextField.delegate = self
+        greenColorTextField.delegate = self
+        blueColorTextField.delegate = self
+        
     }
-
-    @IBAction func sliderValueChanged() {
+    
+    @IBAction func sliderValueChanged(sender: UISlider) {
         changeViewCollor()
-        changeLabelValue()
-        changeModelValue()
+        
+        switch sender{
+        case redSlider:
+            redValue.text = String(format: "%.2f", redSlider.value)
+            color.red = redSlider.value
+            redColorTextField.text = String(format: "%.2f", redSlider.value)
+        case greenSlider:
+            greenValue.text = String(format: "%.2f", greenSlider.value)
+            color.green = greenSlider.value
+            greenColorTextField.text = String(format: "%.2f", greenSlider.value)
+        default:
+            blueValue.text = String(format: "%.2f", blueSlider.value)
+            color.blue = blueSlider.value
+            blueColorTextField.text = String(format: "%.2f", blueSlider.value)
+        }
         
     }
     
@@ -48,10 +69,25 @@ final class PickerViewController: UIViewController {
         collorView.layer.cornerRadius = collorView.frame.width * roundingDepth
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
+    }
+    
+    
+    
     private func getColor() {
         redSlider.value = color.red
         greenSlider.value = color.green
         blueSlider.value = color.blue
+        
+        redValue.text = String(format: "%.2f",color.red)
+        greenValue.text = String(format: "%.2f",color.green)
+        blueValue.text = String(format: "%.2f",color.blue)
+        
+        redColorTextField.text = String(format: "%.2f",color.red)
+        greenColorTextField.text = String(format: "%.2f",color.green)
+        blueColorTextField.text = String(format: "%.2f",color.blue)
     }
     
     private func changeViewCollor() {
@@ -61,17 +97,39 @@ final class PickerViewController: UIViewController {
             blue: CGFloat(blueSlider.value),
             alpha: 1)
     }
-    
-    private func changeLabelValue() {
-        redValue.text = String(format: "%.2f", redSlider.value)
-        greenValue.text = String(format: "%.2f", greenSlider.value)
-        blueValue.text = String(format: "%.2f", blueSlider.value)
-    }
-    
-    private func changeModelValue() {
-        color.red = redSlider.value
-        color.green = greenSlider.value
-        color.blue = blueSlider.value
-    }
 }
 
+
+extension PickerViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case redColorTextField:
+            color.red = Float(redColorTextField.text ?? "") ?? 0
+            redValue.text = redColorTextField.text
+            redSlider.value = Float(redColorTextField.text ?? "") ?? 0
+        case greenColorTextField:
+            color.green = Float(greenColorTextField.text ?? "") ?? 0
+            greenValue.text = greenColorTextField.text
+            greenSlider.value = Float(greenColorTextField.text ?? "") ?? 0
+        default:
+            color.blue = Float(blueColorTextField.text ?? "") ?? 0
+            blueValue.text = blueColorTextField.text
+            blueSlider.value = Float(blueColorTextField.text ?? "") ?? 0
+        }
+        
+        changeViewCollor()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            if string == "," {
+                textField.text = textField.text! + "."
+                return false
+            }
+            return true
+    }
+}
