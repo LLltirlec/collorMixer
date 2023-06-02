@@ -101,28 +101,53 @@ final class PickerViewController: UIViewController {
 
 
 extension PickerViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        let keyboardToolBar = UIToolbar()
+        keyboardToolBar.sizeToFit()
+        textField.inputAccessoryView = keyboardToolBar
+        
+        let doneButton = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: textField,
+            action: #selector(resignFirstResponder))
+        
+        let flexBar = UIBarButtonItem(
+            barButtonSystemItem: .flexibleSpace,
+            target: nil,
+            action: nil)
+        
+        keyboardToolBar.items = [flexBar, doneButton]
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        guard let text = textField.text else {
+            showAlert(title: "Wrong format!", message: "Enter correct value!", textField: textField)
+            return
+        }
+        
+        guard let currentValue = Float(text), (0...1).contains(currentValue) else {
+            showAlert(title: "Wrong format!", message: "Enter correct value!", textField: textField)
+            return
+        }
+        
         switch textField {
         case redColorTextField:
-            color.red = Float(redColorTextField.text ?? "") ?? 0
-            redValue.text = redColorTextField.text
-            redSlider.value = Float(redColorTextField.text ?? "") ?? 0
+            color.red = currentValue
+            redValue.text = String(currentValue)
+            redSlider.setValue(currentValue, animated: true)
         case greenColorTextField:
-            color.green = Float(greenColorTextField.text ?? "") ?? 0
-            greenValue.text = greenColorTextField.text
-            greenSlider.value = Float(greenColorTextField.text ?? "") ?? 0
+            color.green = currentValue
+            greenValue.text = String(currentValue)
+            greenSlider.setValue(currentValue, animated: true)
         default:
-            color.blue = Float(blueColorTextField.text ?? "") ?? 0
-            blueValue.text = blueColorTextField.text
-            blueSlider.value = Float(blueColorTextField.text ?? "") ?? 0
+            color.blue = currentValue
+            blueValue.text = String(currentValue)
+            blueSlider.setValue(currentValue, animated: true)
         }
         
         changeViewCollor()
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -131,5 +156,15 @@ extension PickerViewController: UITextFieldDelegate {
                 return false
             }
             return true
+    }
+    
+    func showAlert (title: String, message: String, textField: UITextField? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            textField?.text = "1.00"
+            textField?.becomeFirstResponder()
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true)
     }
 }

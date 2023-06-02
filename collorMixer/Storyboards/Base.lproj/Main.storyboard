@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="K9B-d9-YfB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="evZ-Cc-Ef5">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
@@ -15,39 +15,27 @@
                     <view key="view" contentMode="scaleToFill" id="xP7-0c-Xdu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F5a-ST-dxN">
-                                <rect key="frame" x="307" y="36" width="52" height="34"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="F5a-ST-dxN" secondAttribute="height" multiplier="26:17" id="cYK-q8-PHr"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="gear" catalog="system"/>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="D4x-HR-K2c"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="ThM-gs-4Uc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="F5a-ST-dxN" firstAttribute="top" secondItem="ThM-gs-4Uc" secondAttribute="top" constant="16" id="Hcw-gZ-GfO"/>
-                            <constraint firstItem="F5a-ST-dxN" firstAttribute="top" secondItem="ThM-gs-4Uc" secondAttribute="top" constant="16" id="Ioa-g2-neQ"/>
-                            <constraint firstItem="F5a-ST-dxN" firstAttribute="height" secondItem="xP7-0c-Xdu" secondAttribute="height" multiplier="0.0509745" id="Z8a-fp-FTE"/>
-                            <constraint firstItem="ThM-gs-4Uc" firstAttribute="trailing" secondItem="F5a-ST-dxN" secondAttribute="trailing" constant="16" id="rVa-pu-ghb"/>
-                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="qSI-AI-ddo">
+                        <barButtonItem key="rightBarButtonItem" image="gear" catalog="system" id="JNl-lB-GgZ">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="EG6-SJ-94X"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CBO-JK-gTe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-796" y="-27"/>
+            <point key="canvasLocation" x="143.19999999999999" y="-27.436281859070466"/>
         </scene>
         <!--Picker View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="PickerViewController" customModule="collorMixer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" ambiguous="YES" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="1Vf-Cl-8zh">
@@ -203,7 +191,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-20" y="-27.436281859070466"/>
+            <point key="canvasLocation" x="919.20000000000005" y="-27.436281859070466"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="swg-E1-2lO">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="evZ-Cc-Ef5" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zFJ-an-x2Q">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="K9B-d9-YfB" kind="relationship" relationship="rootViewController" id="Tby-2e-MMp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cNj-MO-thg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-796" y="-27.436281859070466"/>
         </scene>
     </scenes>
     <resources>
